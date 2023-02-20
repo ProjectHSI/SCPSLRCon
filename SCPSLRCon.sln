@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCPSLRCon", "SCPSLRCon.csproj", "{97CC67E6-68D1-4635-B2CD-09C217D42B86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Debug|x64.ActiveCfg = Debug|x64
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Debug|x64.Build.0 = Debug|x64
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Release|x64.ActiveCfg = Release|x64
+		{97CC67E6-68D1-4635-B2CD-09C217D42B86}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A16B6163-7DCD-4244-AFB6-D3D38A83DEE2}
+	EndGlobalSection
+EndGlobal
