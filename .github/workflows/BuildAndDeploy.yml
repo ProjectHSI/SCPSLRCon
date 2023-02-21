@@ -1,0 +1,28 @@
+name: Build & Deploy
+run-name: SCP:SL RCon Build & Deploy
+on: []
+jobs:
+  Build:
+    runs-on: windows-2022
+    steps:
+      - name: Get Repo
+        uses: actions/checkout@v3
+      
+      - name: Build Project
+        run: dotnet build --configuration Release
+        
+      - run: echo Built project, uploading artifacts to Github repo.
+      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          # Artifact name
+          name: SCPSLRCon
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ./obj/x64/Release/SCPSLRCon.dll
+          # The desired behavior if no files are found using the provided path.
+          if-no-files-found: error
+          retention-days: 0
+          
+      - run: echo Build successful let us party!
+      
