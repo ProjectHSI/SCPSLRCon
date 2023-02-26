@@ -16,8 +16,8 @@ namespace SCPSLRCon
         [PluginConfig]
         private Config Config = new Config();
 
-        [PluginPriority(LoadPriority.Lowest)]
         [PluginEntryPoint("SCP:SL RCon", "v1.0.0", "RCon for SCP:SL.", "[Project HSI]")]
+        [PluginPriority(LoadPriority.Lowest)]
         public void SCPSLRCon()
         {
             Log.Info("Loading SCP:SL RCon...", "SCP:SL RCon");
