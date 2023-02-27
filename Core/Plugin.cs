@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using Log = PluginAPI.Core.Log;
-using Config = SCPSLRCon.Core.Config.CoreConfig;
+using SCPSLRCon.Core.Config;
 using SCPSLRCon.Core;
 
 namespace SCPSLRCon
@@ -14,7 +14,13 @@ namespace SCPSLRCon
     public class Plugin
     {
         [PluginConfig]
-        public Config Config;
+        public CoreConfig CoreConfig;
+
+        [PluginConfig]
+        public LogConfig LogConfig;
+
+        [PluginConfig]
+        public CommandConfig CommandConfig;
 
         [PluginEntryPoint("SCPSLRcon", "v1.0.0", "RCon for SCP:SL.", "[Project HSI]")]
         [PluginPriority(LoadPriority.Lowest)]
