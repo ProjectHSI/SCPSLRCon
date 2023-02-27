@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SCPSLRCon.Core.Config;
 
 namespace SCPSLRCon.Core.Config
 {
@@ -19,10 +18,12 @@ namespace SCPSLRCon.Core.Config
         [Description("RCon password, this is the *only* security mechanism the server has.")]
         public string RConPassword { get; set; } = "SuperSecretPassword";
 
+        /*
         [Description("These settings control which messages should be logged. These only affect the LocalAdmin view.")]
         public LogConfig LogConfig { get; set; } = new LogConfig();
 
         [Description("These settings control which commands are enabled, these don't affect the server and report simple diagnostic and connection infomation.")]
         public CommandConfig CommandConfig { get; set; } = new CommandConfig();
+        */
     }
 }
