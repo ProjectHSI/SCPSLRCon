@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Config = SCPSLRCon.Core.Config.CoreConfig;
+using SCPSLRCon.Core.Config;
 using Log = PluginAPI.Core.Log;
 
 namespace SCPSLRCon.Server.RconImplementer
@@ -24,7 +24,7 @@ namespace SCPSLRCon.Server.RconImplementer
         private RconPacketType Type;
         private string Body;
 
-        private Config Config = new Config();
+        public LogConfig LogConfig;
 
         private string overflowString = "The size of the message that the server was going to send is over 4096 bytes. Please check LocalAdmin's output to see the output.";
 
@@ -34,7 +34,7 @@ namespace SCPSLRCon.Server.RconImplementer
             Type = type;
             Body = body;
 
-            if (Config.LogConfig.EnableTCPPacketLog == true)
+            if (LogConfig.EnableTcpPacketLog == true)
             {
                 if (isToBeFrozenImmediately)
                 {
@@ -80,7 +80,7 @@ namespace SCPSLRCon.Server.RconImplementer
 
             uint Size;
 
-            if (Config.LogConfig.EnableTCPPacketLog == true)
+            if (LogConfig.EnableTcpPacketLog == true)
             {
                 Log.Debug($"Id: {Id}", "SCP:SL RCon");
                 Log.Debug($"Type: {Type}", "SCP:SL RCon");
@@ -91,7 +91,7 @@ namespace SCPSLRCon.Server.RconImplementer
                 Size = System.Convert.ToUInt32(CalculateSize());
                 if (Size > 4096) { throw new OverflowException("The packet being sent was over 4096 bytes -- Server will send a default string."); }
 
-                if (Config.LogConfig.EnableTCPPacketLog == true)
+                if (LogConfig.EnableTcpPacketLog == true)
                 {
                     Log.Debug($"Body: {Body}", "SCP:SL RCon");
                 }
@@ -103,7 +103,7 @@ namespace SCPSLRCon.Server.RconImplementer
 
                 SetBody(overflowString);
 
-                if (Config.LogConfig.EnableTCPPacketLog == true)
+                if (LogConfig.EnableTcpPacketLog == true)
                 {
                     Log.Debug($"The string the command responded with was too large to fit in RCon packet body.\nThe current fallback string is {overflowString}", "SCP:SL RCon");
                 }
