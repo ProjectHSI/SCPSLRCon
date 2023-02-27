@@ -13,13 +13,13 @@ namespace SCPSLRCon
 {
     public class Plugin
     {
-        [PluginConfig]
+        [PluginConfig("CoreConfig.yml")]
         public CoreConfig CoreConfig;
 
-        [PluginConfig]
+        [PluginConfig("LogConfig.yml")]
         public LogConfig LogConfig;
 
-        [PluginConfig]
+        [PluginConfig("CommandConfig.yml")]
         public CommandConfig CommandConfig;
 
         [PluginEntryPoint("SCPSLRcon", "v1.0.0", "RCon for SCP:SL.", "[Project HSI]")]
