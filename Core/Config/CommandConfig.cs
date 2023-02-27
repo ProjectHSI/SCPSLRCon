@@ -10,6 +10,6 @@ namespace SCPSLRCon.Core.Config
     public class CommandConfig
     {
         [Description("Adminstrative command. -- Get the number of active connections (Authenticated/Connected - Both numbers should be the same.).")]
-        public bool EnableTCPConnectionsCommand { get; set; } = true;
+        public bool EnableTcpConnectionsCommand { get; set; } = true;
     }
 }

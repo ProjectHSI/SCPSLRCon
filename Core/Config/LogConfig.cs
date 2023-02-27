@@ -10,15 +10,15 @@ namespace SCPSLRCon.Core.Config
     public class LogConfig
     {
         [Description("Enable TCP packet logs. Depending on your client this may will cause alot of log when connected to an RCon client.")]
-        public bool EnableTCPPacketLog { get; set; } = true;
+        public bool EnableTcpPacketLog { get; set; } = true;
 
         [Description("Enable TCP connection logs.")]
-        public bool EnableTCPConnectionLog { get; set; } = true;
+        public bool EnableTcpConnectionLog { get; set; } = true;
 
         [Description("Enable TCP authentication log.")]
-        public bool EnableTCPAuthLog { get; set; } = true;
+        public bool EnableTcpAuthLog { get; set; } = true;
 
         [Description("Enable TCP command logs.")]
-        public bool EnableTCPCommandLog { get; set; } = true;
+        public bool EnableTcpCommandLog { get; set; } = true;
     }
 }
