@@ -16,11 +16,11 @@ namespace SCPSLRCon
         [PluginConfig]
         public Config Config;
 
-        [PluginEntryPoint("SCPSL RCon", "v1.0.0", "RCon for SCP:SL.", "[Project HSI]")]
+        [PluginEntryPoint("SCPSLRcon", "v1.0.0", "RCon for SCP:SL.", "[Project HSI]")]
         [PluginPriority(LoadPriority.Lowest)]
         public void SCPSLRCon()
         {
-            Log.Info("Loading SCP:SL RCon...", "SCP:SL RCon");
+            Log.Info("Loading SCP:SL Rcon...", "SCP:SL Rcon");
             Log.Info($"Version: {PluginConstants.version}", "SCP:SL RCon");
         }
     }
