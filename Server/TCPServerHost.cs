@@ -22,19 +22,31 @@ namespace SCPSLRCon.Server
         {
             Log.Info("Starting RCon server...", "SCP:SL RCon");
 
+#if DEBUG
             Log.Debug("Debugging!!!", "SCP:SL RCon");
+#endif
 
+#if DEBUG
             Log.Debug("Thread Create", "SCP:SL RCon");
+#endif
+
             Thread currentThread = new Thread(Server)
             {
                 IsBackground = true
             };
+
+#if DEBUG
             Log.Debug("Thread Start", "SCP:SL RCon");
+#endif
+
             currentThread.Start(CoreConfig.TcpServerPort);
 
             Log.Info($"Port: {CoreConfig.TcpServerPort}.", "SCP:SL RCon");
 
+#if DEBUG
             Log.Debug("Return", "SCP:SL RCon");
+#endif
+
             return currentThread;
         }
 
@@ -61,7 +73,9 @@ namespace SCPSLRCon.Server
 
         public TCPServerHost()
         {
-            Log.Info("Server class created...", "SCP:SL RCon");
+#if DEBUG
+            Log.Debug("TCPServerHost class created.", "SCP:SL RCon");
+#endif
         }
 
         /*

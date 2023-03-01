@@ -18,8 +18,6 @@ namespace SCPSLRCon.Server.RconImplementer
         private RconPacketType Type;
         private string Body;
 
-        public LogConfig LogConfig;
-
         private string overflowString = "The size of the message that the server was going to send is over 4096 bytes. Please check LocalAdmin's output to see the output.";
 
         public enum RconPacketType
@@ -86,33 +84,14 @@ namespace SCPSLRCon.Server.RconImplementer
 
             uint Size;
 
-            if (LogConfig.EnableTcpPacketLog)
-            {
-                Log.Debug($"Id: {Id}", "SCP:SL RCon");
-                Log.Debug($"Type: {Type}", "SCP:SL RCon");
-            }
-
             try
             {
                 Size = System.Convert.ToUInt32(CalculateSize());
                 if (Size > 4096) { throw new OverflowException("The packet being sent was over 4096 bytes -- Server will send a default string."); }
-
-                if (LogConfig.EnableTcpPacketLog)
-                {
-                    Log.Debug($"Body: {Body}", "SCP:SL RCon");
-                }
             }
             catch
             {
-                Log.Error("An error occurred; The message that was supposed to be transmitted is too large to fit in a 4096 byte string.");
-                Log.Error("Using an override string.");
-
                 SetBody(overflowString);
-
-                if (LogConfig.EnableTcpPacketLog)
-                {
-                    Log.Debug($"The string the command responded with was too large to fit in RCon packet body.\nThe current fallback string is {overflowString}", "SCP:SL RCon");
-                }
 
                 Size = System.Convert.ToUInt32(CalculateSize());
                 if (Size > 4096) { throw new OverflowException("Dead X_X"); }

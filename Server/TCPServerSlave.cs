@@ -22,6 +22,11 @@ namespace SCPSLRCon.Server
 
         public static void Slave(object Socket)
         {
+
+#if DEBUG
+            Log.Debug("A slave thread has been started.", "SCP:SL RCon");
+#endif
+
             Socket GoodSocket;
 
             CoreConfig CoreConfig = new TCPServerSlave().CoreConfig;
@@ -36,12 +41,21 @@ namespace SCPSLRCon.Server
                 throw new Exception("That wasn't a socket.");
             }
 
+#if DEBUG
+            Log.Debug("A slave thread has finished it's initalization.", "SCP:SL RCon");
+#endif
+
             bool Authenticated = false;
 
             while (true)
             {
                 try
                 {
+
+#if DEBUG
+            Log.Debug("The while loop for a slave thread has started.", "SCP:SL RCon");
+#endif
+
                     byte[] buffer = new byte[] {};
                     GoodSocket.Receive(buffer);
 
@@ -66,6 +80,10 @@ namespace SCPSLRCon.Server
                         RConPacket.RconPacketType.EXECCOMMAND,
                         "An error occurred, please try again."
                     );
+
+#if DEBUG
+            Log.Debug("A slave thread is now processing data.", "SCP:SL RCon");
+#endif
 
                     if (GoodClientPacket.GetType() == RConPacket.RconPacketType.AUTH)
                     {
@@ -118,6 +136,10 @@ namespace SCPSLRCon.Server
                     }
 
                     GoodSocket.Send(GoodServerPacket.GetBuffer());
+
+#if DEBUG
+            Log.Debug("A slave thread has finished it's response and is now repeating it's loop.", "SCP:SL RCon");
+#endif
 
                 }
                 catch (SocketException e)
