@@ -29,6 +29,8 @@ namespace SCPSLRCon
         {
             Log.Info("Loading SCP:SL Rcon...", "SCP:SL Rcon");
             Log.Info($"Version: {PluginConstants.version}", "SCP:SL RCon");
+
+            new TCPServerHost();
         }
     }
 }
