@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,18 +10,11 @@ using Log = PluginAPI.Core.Log;
 
 namespace SCPSLRCon.Server.RconImplementer
 {
-    internal enum RconPacketType
-    {
-        AUTH = 3,
-        EXECCOMMAND = 2,
-        AUTH_RESPONSE = 2,
-        RESPOSNE_VALUE = 0
-    }
 
     internal class RconPacket
     {
         private bool isFrozen = false;
-        private int Id;
+        private uint Id;
         private RconPacketType Type;
         private string Body;
 
@@ -28,33 +22,45 @@ namespace SCPSLRCon.Server.RconImplementer
 
         private string overflowString = "The size of the message that the server was going to send is over 4096 bytes. Please check LocalAdmin's output to see the output.";
 
-        public RconPacket(int size, int id, RconPacketType type, string body, bool isToBeFrozenImmediately)
+        public enum RconPacketType
+        {
+            AUTH = 3,
+            EXECCOMMAND = 2,
+            AUTH_RESPONSE = 2,
+            RESPOSNE_VALUE = 0
+        }
+
+        public static Exception MalformedPacketException = new Exception("The RCon packet was invalid, this probably isn't due to the application failing but an RCon client not working. Server should force disconnection to the client *immediately*.");
+
+        public RconPacket(uint id, RconPacketType type, string body)
         {
             Id = id;
             Type = type;
             Body = body;
+        }
 
-            if (LogConfig.EnableTcpPacketLog)
+        public RconPacket(byte[] packet)
+        {
+            Id = BitConverter.ToUInt32(packet.Skip(3).Take(3).ToArray(), 0);
+
+            uint TempType = BitConverter.ToUInt32(packet.Take(7).Take(3).ToArray(), 0);
+
+            if (TempType == RconPacketType.AUTH.GetHashCode())
             {
-                if (isToBeFrozenImmediately)
-                {
-                    Log.Debug($"Id: {Id}", "SCP:SL RCon");
-                    Log.Debug($"Type: {Type}", "SCP:SL RCon");
-                    if (Type == RconPacketType.AUTH)
-                    {
-                        Log.Debug($"Body: [REDACTED]", "SCP:SL RCon");
-                    }
-                    else
-                    {
-                        Log.Debug($"Body: {Body}", "SCP:SL RCon");
-                    }
-                }
+                Type = RconPacketType.AUTH;
+            }
+            else if (TempType == RconPacketType.EXECCOMMAND.GetHashCode())
+            {
+                Type = RconPacketType.EXECCOMMAND;
+            }
+            else
+            {
+                throw new Exception("The Rcon packet was already frozen. (Please report to this plugin's repo!)");
             }
 
-            if (isToBeFrozenImmediately)
-            {
-                Freeze();
-            }
+            byte[] body = packet.Take(11).ToArray();
+            Body = BitConverter.ToString(body.Take(body.Length - 1).ToArray(), 0);
+            Freeze();
         }
 
         public void Freeze()
@@ -70,7 +76,7 @@ namespace SCPSLRCon.Server.RconImplementer
         }
 
         // 10 bytes is a constant, see https://developer.valvesoftware.com/wiki/Source_RCON_Protocol.
-        public int CalculateSize() { return Body.Length + 10; }
+        public uint CalculateSize() { return (uint)Body.Length + 10; }
 
         public byte[] GetBuffer()
         {
@@ -147,7 +153,7 @@ namespace SCPSLRCon.Server.RconImplementer
             Type = type;
         }
 
-        public void SetId(int id)
+        public void SetId(uint id)
         {
             CheckIfFrozen();
             Id = id;
@@ -159,10 +165,10 @@ namespace SCPSLRCon.Server.RconImplementer
             Body = body;
         }
 
-        public RconPacketType getType() { return Type; }
+        public RconPacketType GetType() { return Type; }
 
-        public int getId() { return Id; }
+        public uint GetId() { return Id; }
 
-        public string getBody() { return Body; }
+        public string GetBody() { return Body; }
     }
 }

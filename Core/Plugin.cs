@@ -8,6 +8,7 @@ using PluginAPI.Enums;
 using Log = PluginAPI.Core.Log;
 using SCPSLRCon.Core.Config;
 using SCPSLRCon.Core;
+using SCPSLRCon.Server;
 
 namespace SCPSLRCon
 {
