@@ -65,6 +65,8 @@ namespace SCPSLRCon.Server
 
             TcpListener listener = new TcpListener(IPAddress.Any, intPort);
 
+            listener.Start();
+
             while (true)
             {
                 Socket currentSocket = listener.AcceptSocket();
