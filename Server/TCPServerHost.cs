@@ -23,14 +23,19 @@ namespace SCPSLRCon.Server
 
             Log.Info("Starting RCon server...", "SCP:SL RCon");
 
+            Log.Debug("Debugging!!!", "SCP:SL RCon");
+
+            Log.Debug("Thread Create", "SCP:SL RCon");
             Thread currentThread = new Thread(Server)
             {
                 IsBackground = true
             };
+            Log.Debug("Thread Start", "SCP:SL RCon");
             currentThread.Start(CoreConfig.TcpServerPort);
 
             Log.Info($"Port: {CoreConfig.TcpServerPort}.", "SCP:SL RCon");
 
+            Log.Debug("Return", "SCP:SL RCon");
             return currentThread;
         }
 
