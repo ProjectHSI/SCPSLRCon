@@ -16,11 +16,10 @@ namespace SCPSLRCon.Server
     internal class TCPServerHost
     {
         [PluginConfig("CoreConfig.yml")]
-        public CoreConfig CoreConfig;
+        public CoreConfig CoreConfig = new CoreConfig();
 
         public Thread CreateServer()
         {
-
             Log.Info("Starting RCon server...", "SCP:SL RCon");
 
             Log.Debug("Debugging!!!", "SCP:SL RCon");
