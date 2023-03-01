@@ -8,20 +8,28 @@ using SCPSLRCon.Server;
 using SCPSLRCon.Core.Config;
 using System.Net.Sockets;
 using System.Net;
+using Log = PluginAPI.Core.Log;
+using PluginAPI.Core.Attributes;
 
 namespace SCPSLRCon.Server
 {
     internal class TCPServerHost
     {
+        [PluginConfig("CoreConfig.yml")]
         public CoreConfig CoreConfig;
 
         public Thread CreateServer()
         {
+
+            Log.Info("Starting RCon server...", "SCP:SL RCon");
+
             Thread currentThread = new Thread(Server)
             {
                 IsBackground = true
             };
             currentThread.Start(CoreConfig.TcpServerPort);
+
+            Log.Info($"Port: {CoreConfig.TcpServerPort}.", "SCP:SL RCon");
 
             return currentThread;
         }
@@ -44,10 +52,12 @@ namespace SCPSLRCon.Server
             while (true)
             {
                 Socket currentSocket = listener.AcceptSocket();
-
-
-
             }
+        }
+
+        public TCPServerHost()
+        {
+            Log.Info("Server class created...", "SCP:SL RCon");
         }
 
         /*
